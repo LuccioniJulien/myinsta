@@ -10,7 +10,7 @@ export default ({ title, onPress }) => (
 );
 
 const Button = styled.TouchableOpacity`
-  height: 50px;
+  height: 42px;
   width: ${width - 40};
   background-color: #faac58;
   border-radius: 5px;

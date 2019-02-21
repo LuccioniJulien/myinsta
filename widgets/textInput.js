@@ -5,7 +5,7 @@ import styled from "styled-components/native";
 
 export default styled.TextInput`
   padding: 10px;
-  height: 50px;
+  height: 45px;
   width: ${width - 40};
   border-color: grey;
   border-width: 1px;

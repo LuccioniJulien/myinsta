@@ -1,5 +1,5 @@
 import React from "react";
-import { Login } from "../fragment";
+import { Login, Register } from "../fragment";
 import styled from "styled-components/native";
 
 export default class auth extends React.Component {
@@ -7,10 +7,18 @@ export default class auth extends React.Component {
     isRegister: false
   };
 
+  changeView = (isRegister = true) => {
+    this.setState({ isRegister });
+  };
+
   render() {
     return (
       <StyledView>
-        <Login />
+        {this.state.isRegister ? (
+          <Register changeView={this.changeView} />
+        ) : (
+          <Login changeView={this.changeView} connexion={this.props.connexion} />
+        )}
       </StyledView>
     );
   }
