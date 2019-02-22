@@ -6,3 +6,5 @@ import text from "./text";
 export const Text = text;
 import title from "./title";
 export const Title = title;
+import card from "./card";
+export const Card = card;

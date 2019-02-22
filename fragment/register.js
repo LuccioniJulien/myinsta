@@ -1,9 +1,7 @@
 import React from "react";
-import { Dimensions } from "react-native";
 import { Button, Input, Title } from "../widgets/index.js";
 import mFetch from "../lib/mFetch";
-import Toast, { DURATION } from "react-native-easy-toast";
-import styled from "styled-components/native";
+import Toast from "react-native-easy-toast";
 
 export default class Register extends React.Component {
   state = {
@@ -51,6 +49,7 @@ export default class Register extends React.Component {
           placeholder="Mot de passe"
           onChangeText={text => this.setState({ password: text })}
           value={password}
+          textContentType="password"
         />
         <Button title="Inscription" onPress={this.register} />
         <Button

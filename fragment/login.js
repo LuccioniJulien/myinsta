@@ -44,6 +44,7 @@ export default class Login extends React.Component {
           placeholder="Mot de passe"
           onChangeText={text => this.setState({ password: text })}
           value={password}
+          textContentType="password"
         />
         <Button title="Connexion" onPress={this.login} />
         <Button
