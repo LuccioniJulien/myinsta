@@ -1,8 +1,8 @@
 import React from "react";
-import { Dimensions } from "react-native";
+import { fetchLogin } from "../api";
 import { Button, Input, Title } from "../widgets/index.js";
-import mFetch from "../lib/mFetch";
 import Toast from "react-native-easy-toast";
+import User from "../lib/user";
 import styled from "styled-components/native";
 
 export default class Login extends React.Component {
@@ -11,17 +11,12 @@ export default class Login extends React.Component {
     password: ""
   };
 
-  verifInput() {}
-
   login = async () => {
     try {
-      const json = await mFetch("https://m-insta.herokuapp.com/auth/local", {
-        method: "POST",
-        body: this.state
-      });
-      console.log(json);
-      if (!json.jwt) throw "no token";
-      this.props.connexion(json.jwt);
+      const { jwt } = await fetchLogin(this.state);
+      if (!jwt) throw "no token";
+      User.getInstance().setUserToken(jwt);
+      this.props.connexion();
     } catch (error) {
       this.refs.toast.show(error);
     }
@@ -47,12 +42,7 @@ export default class Login extends React.Component {
           textContentType="password"
         />
         <Button title="Connexion" onPress={this.login} />
-        <Button
-          title="Inscription"
-          onPress={() => {
-            this.props.changeView();
-          }}
-        />
+        <Button title="Inscription" onPress={() => this.props.changeView()} />
       </>
     );
   }

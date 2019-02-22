@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Input, Title } from "../widgets/index.js";
-import mFetch from "../lib/mFetch";
-import Toast from "react-native-easy-toast";
+import { fetchRegister } from "../api";
+import Toast, { DURATION } from "react-native-easy-toast";
 
 export default class Register extends React.Component {
   state = {
@@ -12,20 +12,14 @@ export default class Register extends React.Component {
 
   register = async () => {
     try {
-      const json = await mFetch(
-        "https://m-insta.herokuapp.com/auth/local/register",
-        {
-          method: "POST",
-          body: this.state
-        }
-      );
+      await fetchRegister(this.state);
       this.refs.toast.show(
         "Inscription réussi, vous pouvez maintenant vous connecter",
         DURATION.LENGTH_LONG
       );
       this.setState({ username: "", password: "", email: "" });
     } catch (error) {
-      this.refs.toast.show(error, DURATION.LENGTH_LONG);
+      this.refs.toast.show(error);
     }
   };
 

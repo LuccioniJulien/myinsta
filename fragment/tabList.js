@@ -1,25 +1,36 @@
 import React from "react";
 import { Card } from "../widgets";
-import mFetch from "../lib/mFetch";
+import { fetchPost } from "../api";
 import { FlatList } from "react-native";
 import styled from "styled-components/native";
 export default class TablFav extends React.Component {
+  static navigationOptions = {
+    tabBarLabel: "Home!"
+  };
+
   state = {
     list: []
   };
 
   async getPost() {
     try {
-      const response = await mFetch("https://m-insta.herokuapp.com/posts", {
-        jwt: this.props.jwt
-      });
+      const response = await fetchPost();
       const list = response.map(x => {
-        return { key: `${x.id}`, url: x.image.url };
+        return {
+          key: `${x.id}`,
+          url: x.image.url,
+          username: x.user.username,
+          tags: x.tags
+        };
       });
       this.setState({ list });
     } catch (error) {
       console.log(error);
     }
+  }
+
+  getTag(arrayTag) {
+    return arrayTag ? arrayTag : ["noTag"];
   }
 
   componentDidMount() {
@@ -28,16 +39,14 @@ export default class TablFav extends React.Component {
 
   render() {
     return (
-      <ViewCard>
+      <>
         <FlatList
           data={this.state.list}
-          renderItem={({ item }) => <Card uri={item.url} />}
+          renderItem={({ item }) => (
+            <Card uri={item.url} name={item.username} tags={item.tags} />
+          )}
         />
-      </ViewCard>
+      </>
     );
   }
 }
-
-const ViewCard = styled.View`
-  align-items: center;
-`;

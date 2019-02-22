@@ -1,11 +1,19 @@
 import React from "react";
 import { TablList, TabAccount, TabPhoto } from "../fragment/index";
-import { createBottomTabNavigator, createAppContainer } from "react-navigation";
+import {
+  createBottomTabNavigator,
+  createAppContainer,
+  createStackNavigator
+} from "react-navigation";
 import Icon from "react-native-vector-icons/FontAwesome";
+
+TablList.navigationOptions = {
+  title: "Home"
+};
 
 const TabNavigator = createBottomTabNavigator(
   {
-    Home: TablList,
+    Home: createStackNavigator({ TablList }),
     Search: TablList,
     Favoris: TablList,
     Photo: TabPhoto,
@@ -33,12 +41,13 @@ const TabNavigator = createBottomTabNavigator(
             name = "user";
             break;
         }
-        return <Icon name={name} size={20} />;
+        return <Icon name={name} size={25} />;
       }
     }),
     tabBarOptions: {
       activeTintColor: "tomato",
-      inactiveTintColor: "gray"
+      inactiveTintColor: "gray",
+      showLabel: false
     }
   }
 );

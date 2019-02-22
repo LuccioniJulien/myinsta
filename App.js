@@ -4,14 +4,13 @@ import Home from "./screens/home";
 import { KeyboardAvoidingView } from "react-native";
 export default class App extends React.Component {
   state = {
-    jwt:
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNTUwODI2OTk3LCJleHAiOjE1NTM0MTg5OTd9.rueLvHAWdwx8THdAIyuqBuzrO0In50LifLSYSS-fSVg"
+    isConnected: false
   };
 
-  handleConnexion = jwt => this.setState({ jwt });
+  handleConnexion = (isConnected = true) => this.setState({ isConnected });
 
   render() {
-    return this.state.jwt ? (
+    return this.state.isConnected ? (
       <Home />
     ) : (
       <Auth connexion={this.handleConnexion} />
